@@ -1169,7 +1169,7 @@ public class SpiceManager implements Runnable {
             checkServiceIsProperlyDeclaredInAndroidManifest(context);
             final Intent intent = new Intent(context, spiceServiceClass);
             
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= 26) {
                 context.startForegroundService(intent);
             } else {
                 context.startService(intent);
