@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Build;
 
 import com.octo.android.robospice.SpiceService.SpiceServiceBinder;
 import com.octo.android.robospice.command.AddSpiceServiceListenerCommand;
@@ -1167,7 +1168,13 @@ public class SpiceManager implements Runnable {
         if (context != null) {
             checkServiceIsProperlyDeclaredInAndroidManifest(context);
             final Intent intent = new Intent(context, spiceServiceClass);
-            context.startService(intent);
+            
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
+                   
             success = true;
         }
 
